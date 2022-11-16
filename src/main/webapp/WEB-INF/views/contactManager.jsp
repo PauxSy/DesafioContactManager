@@ -25,12 +25,12 @@
 		//document.getElementById("frmAcciones").method = "GET";
 		//document.getElementById("frmAcciones").submit();
 		
-		window.location.href = "/contactManager/deleteContact/?id=" + idSelect;
+		window.location.href = "/contactManager/deleteContact/?id=" + (idSelect);
 	}
 </script>
 </head>
 <body>
-	<form:form id="frmAcciones" modelAttribute="contact">
+	<form:form id="frmAcciones" modelAttribute="contact" >
 		<div>
 			<fieldset>
 				<legend>Mantenedor de Contactos</legend>
@@ -44,9 +44,9 @@
 						<td><input type="text" id="idApellidoMaterno" name="apellidoMaterno"/></td>
 					</tr>
 					<tr>
-						<td>Dirección: </td>
+						<td>Direcciï¿½n: </td>
 						<td colspan="3"><input type="text" id="idDireccion" name="direccion" width="100%"/></td>
-						<td>Teléfono: </td>
+						<td>Telï¿½fono: </td>
 						<td><input type="text" id="idTelefono" name="telefono"/></td>
 					</tr>
 					<tr>
@@ -70,8 +70,8 @@
 				<th>Nombre</th>
 				<th>Apellido Paterno</th>
 				<th>Apellido Materno</th>
-				<th>Dirección</th>
-				<th>Teléfono</th>
+				<th>Direcciï¿½n</th>
+				<th>Telï¿½fono</th>
 			</tr>
 			<tbody>
 				<c:forEach items="${listContact}" var="contact" >

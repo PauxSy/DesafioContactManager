@@ -43,7 +43,20 @@ public class ContactController {
 	
 	@RequestMapping(value="/addContact", method = RequestMethod.POST)
 	public String addContact(ModelMap model, @ModelAttribute("contact") Contact contact) {
-		contact.setIdContact(listContact.size() + 1);
+		if (listContact.size()==0) {
+			contact.setIdContact(listContact.size()+1);
+		}else {
+			int index = 0;
+			for(int i =0; i<listContact.size();i++) {
+				if (listContact.get(i).getIdContact()>index) {
+					index=(listContact.get(i).getIdContact());
+				}
+			}
+			index+=1;
+			contact.setIdContact(index);
+		}
+		
+		
 		listContact.add(contact);
 		model.put("listContact", listContact);
 		return "contactManager";
