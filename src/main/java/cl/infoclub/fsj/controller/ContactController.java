@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cl.infoclub.fsj.entity.Contact;
 @Controller
-@RequestMapping(value="/contactManager")
+@RequestMapping(value="/contactManager", method = RequestMethod.GET)
 public class ContactController {
 	@Autowired
 	Contact contact;
