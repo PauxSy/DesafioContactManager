@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,61 +12,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cl.infoclub.fsj.contactservice.IContactService;
+import cl.infoclub.fsj.contactserviceimpl.ContactServiceImpl;
 import cl.infoclub.fsj.entity.Contact;
 @Controller
 @RequestMapping(value="/contactManager", method = RequestMethod.GET)
 public class ContactController {
-	@Autowired
-	Contact contact;
+	ContactServiceImpl contactoService = new ContactServiceImpl();
+	//IContactService contactoService;
 	
-	private List<Contact> listContact;
-
-	ContactController() {
-		super();
-		listContact = new ArrayList<Contact>();
-	}
 	
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
 	
 	@RequestMapping(value="/getContact", method = RequestMethod.GET)
 	public String getContactList(ModelMap model) {
-		
-		if(contact.getIdContact() > 0) {
-			listContact.add(contact);
-		}
-		
-		model.put("listContact", listContact);
+		contactoService.getContactList(model);
 		
 		return "contactManager";
 	}
 	
 	@RequestMapping(value="/addContact", method = RequestMethod.POST)
 	public String addContact(ModelMap model, @ModelAttribute("contact") Contact contact) {
-		if (listContact.size()==0) {
-			contact.setIdContact(listContact.size()+1);
-		}else {
-			int index = 0;
-			for(int i =0; i<listContact.size();i++) {
-				if (listContact.get(i).getIdContact()>index) {
-					index=(listContact.get(i).getIdContact());
-				}
-			}
-			index+=1;
-			contact.setIdContact(index);
-		}
-		
-		
-		listContact.add(contact);
-		model.put("listContact", listContact);
+		contactoService.addContact(model, contact);
 		return "contactManager";
 	}
 	
 	@RequestMapping(value="/deleteContact", method = RequestMethod.GET)
 	public String deleteContact(ModelMap model, @RequestParam("id") int id) {
-		listContact.remove(id - 1);
-		model.put("listContact", listContact);
+		
+		contactoService.deleteContact(model, id);
 		return "contactManager";
 	}
 }
