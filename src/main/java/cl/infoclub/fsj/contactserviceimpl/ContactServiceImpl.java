@@ -14,7 +14,7 @@ public class ContactServiceImpl implements IContactService{
 	IContactService contactoService;
 	
 	Contact contact;
-	private List<Contact> listContact;
+	private List<Contact> listContact=new ArrayList<Contact>();
 	
 	@Override
 	public List<Contact> getContactList(ModelMap model) {
